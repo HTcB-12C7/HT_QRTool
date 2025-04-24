@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>链接转二维码</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>🔗 链接转二维码</h1>
+
+    <input type="text" id="urlInput" placeholder="请输入链接，例如 https://htcb7.com" />
+    <button onclick="generateQR()">生成二维码</button>
+
+    <div id="qrcode"></div>
+
+    <div class="btn-group">
+      <button onclick="downloadQR()">下载二维码</button>
+      <button onclick="copyQR()">复制二维码</button>
+    
+    <hr />
+    <h2>📷 扫描二维码</h2>
+    <input type="file" accept="image/*" onchange="scanQRCode(this)" />
+    <div id="scan-result"></div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <script src="script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+</body>
+</html>
