@@ -53,6 +53,7 @@ body {
     position: fixed; /* ✅ 加这行：固定在左侧 */
     top: 60px;        /* ✅ 和 header 高度一致，刚好贴住 header 下边 */
     left: 0;          /* ✅ 贴左边 */
+    overflow-y: auto; /* ✅ 允许内部滚动 */
     width: 200px;
     background: linear-gradient(45deg, #5d4037, #8d6e63);
     padding: 20px;
