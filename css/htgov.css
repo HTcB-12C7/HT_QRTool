@@ -46,6 +46,7 @@ body {
     flex-grow: 1;
     width: 100%;
     padding-top: 60px; /* ✅ 关键补丁 */
+    padding-left: 200px;
 }
 
 .sidebar {
