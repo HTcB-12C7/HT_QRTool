@@ -1,4 +1,112 @@
 <!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>页面标题</title>
+<link rel="stylesheet" href="css/htgov.css" />
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
+        </head>
+        <body>
+            <div class="header">
+                <a href="https://htcb-12c7.github.io/htgov/">
+                    <img class="logo" src="https://cdn.jsdelivr.net/gh/HTcB-12C7/htchocolate.github.io@main/HTengov.webp" alt="返回主页">
+                </a>
+                黑铁工作室主页 <span>【灰度开放测试中】</span>
+                
+                <!-- Language 按钮 -->
+                <button id="lang-toggle" style="
+                    position: absolute;
+                    top: 10px;
+                    right: 70px;
+                    padding: 8px 16px;
+                    font-size: 16px;           /* 字体大小 */
+                    background: black;
+                    color: #03a9f4;
+                    border: 1px solid #03a9f4;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    font-weight: bold;
+                ">
+                🌐 Language
+                </button>
+
+                <!-- 头像 + 弹出卡片 -->
+                <div class="account-toggle" style="position: absolute; top: 10px; right: 10px;">
+                  <img
+                    src="assets/61892f13-66e7-412f-9881-00ddea29080b.png"
+                    alt="头像"
+                    style="width: 40px; height: 40px; border-radius: 50%; cursor: pointer;"
+                    onclick="toggleAccountInfo()" />
+                  <div class="account-popup" id="accountPopup" style="
+                    display: none;
+                    position: absolute;
+                    top: 45px;
+                    right: 0;
+                    background: rgba(0,0,0,0.9);
+                    padding: 10px 15px;
+                    border-radius: 8px;
+                    color: white;
+                    z-index: 9999;
+                    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+                    white-space: nowrap; /* ✅ 加这行：防止换行 */">
+                    <div><strong>姓名：</strong>HTc</div>
+                    <div><strong>身份证：</strong>HT10001</div>
+                    <div><strong>银行卡号：</strong>1530 0089 8607 2871</div>
+                    <div><strong>地址：</strong>上海市 徐汇县 川东新区 728弄 黑铁快递柜</div>
+                  </div>
+                </div>
+
+                <!-- Google 翻译语言框（请放在最外面，不嵌套在上面的 div 中） -->
+                <div id="google_translate_element" style="
+                    position: absolute;
+                    top: 50px;
+                    right: 0px;
+                    display: none;
+                    background: rgba(0, 0, 0, 0.8);
+                    padding: 8px;
+                    border-radius: 5px;
+                    z-index: 9999;
+                "></div>
+                    </div>
+
+            <div class="main-container">
+                <div class="sidebar">
+                    <h3>黑铁工作室</h3>
+                    <ul>
+                        <li><a href="https://htcb-12c7.github.io/htgov/HTCMVideo.html">黑铁CMVideo</a></li>
+			<li><a href="https://htcb-12c7.github.io/htgov/HTVIP">黑铁 VIP</a></li>
+                        <li><a href="https://htcb-12c7.github.io/HT_RedhatHacker_boxsell/">黑铁红帽黑客自学箱</a></li>
+                        <li><a href="https://htcb-12c7.github.io/HT_QRTool/">黑铁二维码工具</a></li>
+                        <li><a href="https://htcb-12c7.github.io/htgov/HTcookie_converter.html">黑铁Cookie提取工具</a></li>
+                        <li><a href="https://htchocolate.kit.com/6eba531f42">黑铁英格ZOO G</a></li>
+                        <li><a href="https://hpubgmjby.sh-cqxzjxcomputer.workers.dev/">小克力【测试未部署】</a></li>
+                        <li><a href="https://htcb-12c7.github.io/htgov/">黑铁工作室简介</a></li>
+                    </ul>
+                </div>
+
+  <script>
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'zh-CN',
+        includedLanguages: 'zh-CN,en,ja,ko,fr,es,de,ru',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+      }, 'google_translate_element');
+    }
+
+    document.getElementById("lang-toggle").onclick = () => {
+      const el = document.getElementById("google_translate_element");
+      el.style.display = el.style.display === "none" ? "block" : "none";
+    };
+
+    function toggleAccountInfo() {
+      const popup = document.getElementById('accountPopup');
+      popup.style.display = popup.style.display === 'none' ? 'block' : 'none';
+    }
+  </script>
+
 <html lang="zh">
 <head>
   <meta charset="UTF-8" />
@@ -29,5 +137,6 @@
   <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
   <script src="script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+              
 </body>
 </html>
