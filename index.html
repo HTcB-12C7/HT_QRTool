@@ -7,7 +7,11 @@
 <link rel="stylesheet" href="css/htgov.css" />
   <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>链接转二维码</title>
+  <link rel="stylesheet" href="style.css" />
+	
         </head>
         <body>
             <div class="header">
@@ -87,35 +91,7 @@
                     </ul>
                 </div>
 
-  <script>
-    function googleTranslateElementInit() {
-      new google.translate.TranslateElement({
-        pageLanguage: 'zh-CN',
-        includedLanguages: 'zh-CN,en,ja,ko,fr,es,de,ru',
-        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-      }, 'google_translate_element');
-    }
-
-    document.getElementById("lang-toggle").onclick = () => {
-      const el = document.getElementById("google_translate_element");
-      el.style.display = el.style.display === "none" ? "block" : "none";
-    };
-
-    function toggleAccountInfo() {
-      const popup = document.getElementById('accountPopup');
-      popup.style.display = popup.style.display === 'none' ? 'block' : 'none';
-    }
-  </script>
-</body>
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>链接转二维码</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="container">
+	<div class="container">
     <h1>🔗 链接转二维码</h1>
 
     <input type="text" id="urlInput" placeholder="请输入链接，例如 https://htcb7.com" />
@@ -134,9 +110,31 @@
 
   </div>
 
+  <script>
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'zh-CN',
+        includedLanguages: 'zh-CN,en,ja,ko,fr,es,de,ru',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+      }, 'google_translate_element');
+    }
+
+    document.getElementById("lang-toggle").onclick = () => {
+      const el = document.getElementById("google_translate_element");
+      el.style.display = el.style.display === "none" ? "block" : "none";
+    };
+
+    function toggleAccountInfo() {
+      const popup = document.getElementById('accountPopup');
+      popup.style.display = popup.style.display === 'none' ? 'block' : 'none';
+    }
+
   <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
   <script src="script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
-              
+	  
+  </script>
+		
 </body>
+
 </html>
