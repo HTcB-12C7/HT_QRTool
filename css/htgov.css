@@ -49,7 +49,7 @@ body {
 }
 
 .sidebar {
-    position: fixed; /* ✅ 加这行：固定在左侧 */
+/*  position: fixed; /* ✅ 加这行：固定在左侧 */
     top: 60px;        /* ✅ 和 header 高度一致，刚好贴住 header 下边 */
     left: 0;          /* ✅ 贴左边 */
     width: 200px;
