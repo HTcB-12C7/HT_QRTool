@@ -47,6 +47,7 @@ body {
     width: 100%;
     padding-top: 60px; /* ✅ 关键补丁 */
     padding-left: 200px;
+    overflow-y: auto; /* ✅ 允许内部滚动 */
 }
 
 .sidebar {
