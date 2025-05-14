@@ -52,8 +52,6 @@ body {
     position: fixed; /* ✅ 加这行：固定在左侧 */
     top: 60px;        /* ✅ 和 header 高度一致，刚好贴住 header 下边 */
     left: 0;          /* ✅ 贴左边 */
-    height: calc(100vh - 60px); /* ✅ 自动高度撑满剩下的视口 */
-    z-index: 9998; /* 避免被内容盖住 */
     width: 200px;
     background: linear-gradient(45deg, #5d4037, #8d6e63);
     padding: 20px;
