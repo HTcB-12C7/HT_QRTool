@@ -76,9 +76,43 @@
       display:none; position:absolute; top:45px; right:0; background:rgba(0,0,0,0.9);
       padding:10px 15px; border-radius:8px; color:#fff; z-index:9999; box-shadow:0 0 10px rgba(0,0,0,0.5); white-space:nowrap;
     }
-  </style>
+
+  /* 只做布局约束，不动你原有宽度 */
+  :root { --headerH: 60px; } /* 兜底值，JS 会在加载后改成真实高度 */
+
+  html, body { height: 100%; margin: 0; }
+
+  /* 主工作区 = 总高度 - 头部高度 */
+  .main-container {
+    display: flex;
+    height: calc(100vh - var(--headerH));
+    overflow: hidden; /* 阻止整页滚动条 */
+  }
+
+  /* 仅左侧导航可滚动；不设置宽度，使用你原CSS里的宽度 */
+  .sidebar {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch; /* iOS 丝滑 */
+  }
+
+  /* 右侧内容不滚动（需要滚动时你再改为 auto） */
+  .content {
+    flex: 1;
+    overflow: hidden;
+  }
+</style>
 </head>
 <body>
+  <script>
+  // 根据实际头部高度，动态设置 --headerH，防止写死 60px 导致错位
+  (function () {
+    const header = document.querySelector('.header');
+    const h = header ? header.offsetHeight : 60;
+    document.documentElement.style.setProperty('--headerH', h + 'px');
+    // 如果你会在运行时改变 header 高度（比如显示翻译框），可在变化后再次调用这段
+  })();
+</script>
+
   <!-- 顶部 -->
   <div class="header">
     <a href="https://htcb-12c7.github.io/htgov/">
