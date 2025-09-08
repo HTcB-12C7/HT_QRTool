@@ -37,3 +37,10 @@ button {
 #qrcode {
   margin-top: 20px;
 }
+.content {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;   /* 水平居中 */
+  align-items: flex-start;   /* 顶部对齐，不会上下居中 */
+  padding: 40px;
+}
