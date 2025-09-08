@@ -4,92 +4,153 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>黑铁二维码工具</title>
-  <title>黑铁二维码工具</title>
-<link rel="stylesheet" href="css/htgov.css" />
+  <link rel="stylesheet" href="css/htgov.css" />
   <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <style>
+    /* —— 关键布局：让下方区域占满屏幕，并只允许左侧滚动 —— */
+    html, body { height: 100%; margin: 0; }
+    .header { position: relative; min-height: 60px; }
+    .layout {               /* 整个工作区：左侧导航 + 右侧内容 */
+      display: flex;
+      height: calc(100vh - 60px);  /* 60px ≈ header 高度 */
+      overflow: hidden;            /* 阻止整体滚动 */
+    }
+    .sidebar {
+      width: 260px;
+      overflow: auto;              /* ✅ 仅导航可滚动 */
+      padding: 16px;
+      box-sizing: border-box;
+    }
+    .content {
+      flex: 1;
+      overflow: hidden;            /* ✅ 右侧内容不可滚动 */
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 24px;
+      box-sizing: border-box;
+    }
+    .container {                    /* 右侧内容卡片（保持不超出容器） */
+      max-width: 800px;
+      width: 100%;
+      background: rgba(0,0,0,0.6);
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+      padding: 24px 28px;
+      box-sizing: border-box;
+    }
 
+    /* 输入、按钮风格（保留你的深色系） */
+    textarea, input[type="text"]{
+      background-color: #2e1b17;
+      color: #e0e0e0;
+      border: 1px solid #8d6e63;
+      padding: 10px;
+      border-radius: 5px;
+      font-family: monospace;
+      width: 100%;
+    }
+    button{
+      background-color: #000;
+      color: #ffd700;
+      border: 1px solid #ffd700;
+      padding: 8px 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background .3s;
+    }
+    button:hover{ background:#2b2b2b; color:#fff8dc; }
 
-        </head>
-        <body>
-            <div class="header">
-                <a href="https://htcb-12c7.github.io/htgov/">
-                    <img class="logo" src="https://cdn.jsdelivr.net/gh/HTcB-12C7/htchocolate.github.io@main/HTengov.webp" alt="返回主页">
-                </a>
-                黑铁工作室主页 <span>【灰度开放测试中】</span>
+    /* 顶部元素（logo/语言按钮/头像）的小样式，与你现有CSS兼容 */
+    .logo{
+      position:absolute; left:0; top:0; height:60px; width:60px; object-fit:cover; cursor:pointer; z-index:10;
+    }
+    #google_translate_element{
+      position: absolute; top: 50px; right: 0; display: none;
+      background: rgba(0,0,0,0.8); padding: 8px; border-radius: 5px; z-index: 9999;
+    }
+    .account-toggle{ position:absolute; top:10px; right:10px; }
+    .account-toggle img{ width:40px; height:40px; border-radius:50%; cursor:pointer; }
+    .account-popup{
+      display:none; position:absolute; top:45px; right:0; background:rgba(0,0,0,0.9);
+      padding:10px 15px; border-radius:8px; color:#fff; z-index:9999; box-shadow:0 0 10px rgba(0,0,0,0.5); white-space:nowrap;
+    }
+  </style>
+</head>
+<body>
+  <!-- 顶部 -->
+  <div class="header">
+    <a href="https://htcb-12c7.github.io/htgov/">
+      <img class="logo" src="https://cdn.jsdelivr.net/gh/HTcB-12C7/htchocolate.github.io@main/HTengov.webp" alt="返回主页">
+    </a>
+    黑铁工作室主页 <span>【灰度开放测试中】</span>
 
-                <!-- Language 按钮 -->
-                <button id="lang-toggle" style="
-                    position: absolute;
-                    top: 1px;
-                    right: 70px;
-                    padding: 8px 16px;
-                    font-size: 16px;           /* 字体大小 */
-                    background: black;
-                    color: #03a9f4;
-                    border: 1px solid #03a9f4;
-                    border-radius: 5px;
-                    cursor: pointer;
-                    font-weight: bold;
-                ">
-                🌐 Language
-                </button>
+    <button id="lang-toggle" style="
+      position:absolute; top:1px; right:70px; padding:8px 16px; font-size:16px;
+      background:#000; color:#03a9f4; border:1px solid #03a9f4; border-radius:5px; cursor:pointer; font-weight:bold;">
+      🌐 Language
+    </button>
 
-                <!-- 头像 + 弹出卡片 -->
-                <div class="account-toggle" style="position: absolute; top: 10px; right: 10px;">
-                  <img
-                    src="assets/61892f13-66e7-412f-9881-00ddea29080b.png"
-                    alt="头像"
-                    style="width: 40px; height: 40px; border-radius: 50%; cursor: pointer;"
-                    onclick="toggleAccountInfo()" />
-                  <div class="account-popup" id="accountPopup" style="
-                    display: none;
-                    position: absolute;
-                    top: 45px;
-                    right: 0;
-                    background: rgba(0,0,0,0.9);
-                    padding: 10px 15px;
-                    border-radius: 8px;
-                    color: white;
-                    z-index: 9999;
-                    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-                    white-space: nowrap; /* ✅ 加这行：防止换行 */">
-                    <div><strong>姓名：</strong>HTc</div>
-                    <div><strong>身份证：</strong>HT10001</div>
-                    <div><strong>银行卡号：</strong>1530 0089 8607 2871</div>
-                    <div><strong>地址：</strong>上海市 徐汇县 川东新区 728弄 黑铁快递柜</div>
-                  </div>
-                </div>
+    <div class="account-toggle">
+      <img src="assets/61892f13-66e7-412f-9881-00ddea29080b.png" alt="头像" onclick="toggleAccountInfo()"/>
+      <div class="account-popup" id="accountPopup">
+        <div><strong>姓名：</strong>HTc</div>
+        <div><strong>身份证：</strong>HT10001</div>
+        <div><strong>银行卡号：</strong>1530 0089 8607 2871</div>
+        <div><strong>地址：</strong>上海市 徐汇县 川东新区 728弄 黑铁快递柜</div>
+      </div>
+    </div>
 
-                <!-- Google 翻译语言框（请放在最外面，不嵌套在上面的 div 中） -->
-                <div id="google_translate_element" style="
-                    position: absolute;
-                    top: 50px;
-                    right: 0px;
-                    display: none;
-                    background: rgba(0, 0, 0, 0.8);
-                    padding: 8px;
-                    border-radius: 5px;
-                    z-index: 9999;
-                "></div>
-                    </div>
+    <div id="google_translate_element"></div>
+  </div>
 
-            <div class="main-container">
-                <div class="sidebar">
-                    <h3>黑铁工作室</h3>
-                    <ul>
-                        <li><a href="https://htcb-12c7.github.io/htgov/HTcalendar">黑铁实时日历系统</a></li>                        
-                        <li><a href="https://htcb-12c7.github.io/htgov/HTCMVideo">黑铁CMVideo</a></li>
-			<li><a href="https://htcb-12c7.github.io/htgov/HTVIP">黑铁 VIP</a></li>
-                        <li><a href="https://htcb-12c7.github.io/htgov/HTcookie_converter">黑铁Cookie提取工具</a></li>
-                        <li><a href="https://htcb-12c7.github.io/HT_QRTool/">黑铁二维码工具</a></li>
-                        <li><a href="https://htcb-12c7.github.io/HT_RedhatHacker_boxsell/">黑铁红帽黑客自学箱</a></li>
-                        <li><a href="https://htchocolate.kit.com/6eba531f42">黑铁英格ZOO G</a></li>
-                        <li><a href="https://hpubgmjby.sh-cqxzjxcomputer.workers.dev/">小克力【测试未部署】</a></li>
-                        <li><a href="https://htcb-12c7.github.io/htgov">黑铁工作室简介</a></li>
-                    </ul>
-                </div>
+  <!-- 下方工作区：左可滚，右固定 -->
+  <div class="layout">
+    <!-- 左侧导航（可滚动） -->
+    <div class="sidebar">
+      <h3>黑铁工作室</h3>
+      <ul>
+        <li><a href="https://htcb-12c7.github.io/htgov/HTcalendar">黑铁实时日历系统</a></li>
+        <li><a href="https://htcb-12c7.github.io/htgov/HTCMVideo">黑铁CMVideo</a></li>
+        <li><a href="https://htcb-12c7.github.io/htgov/HTVIP">黑铁 VIP</a></li>
+        <li><a href="https://htcb-12c7.github.io/htgov/HTcookie_converter">黑铁Cookie提取工具</a></li>
+        <li><a href="https://htcb-12c7.github.io/HT_QRTool/">黑铁二维码工具</a></li>
+        <li><a href="https://htcb-12c7.github.io/HT_RedhatHacker_boxsell/">黑铁红帽黑客自学箱</a></li>
+        <li><a href="https://htchocolate.kit.com/6eba531f42">黑铁英格ZOO G</a></li>
+        <li><a href="https://hpubgmjby.sh-cqxzjxcomputer.workers.dev/">小克力【测试未部署】</a></li>
+        <li><a href="https://htcb-12c7.github.io/htgov">黑铁工作室简介</a></li>
+      </ul>
+    </div>
 
+    <!-- 右侧内容（不滚动） -->
+    <div class="content">
+      <div class="container">
+        <h1>🔗 链接转二维码</h1>
+
+        <input type="text" id="urlInput" placeholder="请输入链接，例如 https://htcb7.com" />
+        <div style="height:12px;"></div>
+        <button onclick="generateQR()">生成二维码</button>
+
+        <div id="qrcode" style="margin:16px 0;"></div>
+
+        <div class="btn-group" style="display:flex; gap:12px; flex-wrap:wrap;">
+          <button onclick="downloadQR()">下载二维码</button>
+          <button onclick="copyQR()">复制二维码</button>
+        </div>
+
+        <hr style="margin:20px 0; opacity:.4;" />
+
+        <h2>📷 扫描二维码</h2>
+        <input type="file" accept="image/*" onchange="scanQRCode(this)" />
+        <div id="scan-result" style="margin-top:10px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 脚本区（只在文档底部一次性引入） -->
   <script>
+    // Google 翻译初始化
     function googleTranslateElementInit() {
       new google.translate.TranslateElement({
         pageLanguage: 'zh-CN',
@@ -97,48 +158,71 @@
         layout: google.translate.TranslateElement.InlineLayout.SIMPLE
       }, 'google_translate_element');
     }
-
+    // 语言框显示/隐藏
     document.getElementById("lang-toggle").onclick = () => {
       const el = document.getElementById("google_translate_element");
-      el.style.display = el.style.display === "none" ? "block" : "none";
+      el.style.display = (el.style.display === "none" || el.style.display === "") ? "block" : "none";
     };
-
+    // 头像弹窗
     function toggleAccountInfo() {
       const popup = document.getElementById('accountPopup');
       popup.style.display = popup.style.display === 'none' ? 'block' : 'none';
     }
   </script>
-</body>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>链接转二维码</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="container">
-    <h1>🔗 链接转二维码</h1>
-
-    <input type="text" id="urlInput" placeholder="请输入链接，例如 https://htcb7.com" />
-    <button onclick="generateQR()">生成二维码</button>
-
-    <div id="qrcode"></div>
-
-    <div class="btn-group">
-      <button onclick="downloadQR()">下载二维码</button>
-      <button onclick="copyQR()">复制二维码</button>
-
-    <hr />
-    <h2>📷 扫描二维码</h2>
-    <input type="file" accept="image/*" onchange="scanQRCode(this)" />
-    <div id="scan-result"></div>
-
-  </div>
-
+  <!-- 二维码相关库 -->
   <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
-  <script src="script.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+  <script>
+    // 生成二维码
+    function generateQR(){
+      const url = document.getElementById('urlInput').value.trim();
+      if(!url){ alert('请输入链接'); return; }
+      const container = document.getElementById('qrcode');
+      container.innerHTML = '';
+      QRCode.toCanvas(url, { width: 240, margin: 1 }, (err, canvas) => {
+        if(err){ alert('生成失败'); return; }
+        container.appendChild(canvas);
+      });
+    }
+    // 下载二维码
+    function downloadQR(){
+      const canvas = document.querySelector('#qrcode canvas');
+      if(!canvas){ alert('请先生成二维码'); return; }
+      const link = document.createElement('a');
+      link.href = canvas.toDataURL('image/png');
+      link.download = 'qrcode.png';
+      link.click();
+    }
+    // 复制二维码（复制为图片到剪贴板，兼容性有限）
+    async function copyQR(){
+      const canvas = document.querySelector('#qrcode canvas');
+      if(!canvas){ alert('请先生成二维码'); return; }
+      try{
+        canvas.toBlob(async blob=>{
+          await navigator.clipboard.write([new ClipboardItem({ [blob.type]: blob })]);
+          alert('已复制二维码图片到剪贴板');
+        });
+      }catch(e){
+        alert('复制失败，可能浏览器不支持');
+      }
+    }
+    // 扫描二维码（从图片中识别）
+    function scanQRCode(input){
+      const file = input.files && input.files[0];
+      if(!file) return;
+      const img = new Image();
+      img.onload = ()=>{
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width; canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img,0,0);
+        const imageData = ctx.getImageData(0,0,canvas.width,canvas.height);
+        const code = jsQR(imageData.data, canvas.width, canvas.height);
+        document.getElementById('scan-result').textContent = code ? ('识别结果：'+code.data) : '未识别到二维码';
+      };
+      img.src = URL.createObjectURL(file);
+    }
+  </script>
 </body>
 </html>
