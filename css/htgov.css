@@ -93,10 +93,11 @@ body {
 .content {
     flex-grow: 1;
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    justify-content: center;   /* 水平方向居中 */
+    align-items: center;       /* 垂直方向居中 */
     padding: 40px;
 }
+
 
 .container {
     background: rgba(0, 0, 0, 0.6);
