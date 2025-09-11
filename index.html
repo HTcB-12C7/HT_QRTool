@@ -120,11 +120,22 @@
     </a>
     黑铁工作室主页 <span>【#25911 正式开放】</span>
 
-    <button id="lang-toggle" style="
-      position:absolute; top:1px; right:70px; padding:8px 16px; font-size:16px;
-      background:#000; color:#03a9f4; border:1px solid #03a9f4; border-radius:5px; cursor:pointer; font-weight:bold;">
-      🌐 Language
-    </button>
+<button id="lang-toggle" style="
+  position:absolute;
+  top:50%;                  /* 顶部50% */
+  right:70px;               /* 靠右 */
+  transform: translateY(-50%); /* 向上偏移自己高度的一半，真正居中 */
+  padding:8px 16px;
+  font-size:16px;
+  background:#000;
+  color:#03a9f4;
+  border:1px solid #03a9f4;
+  border-radius:5px;
+  cursor:pointer;
+  font-weight:bold;">
+  🌐 Language
+</button>
+
 
     <div class="account-toggle">
       <img src="assets/61892f13-66e7-412f-9881-00ddea29080b.png" alt="头像" onclick="toggleAccountInfo()"/>
